@@ -1,0 +1,11 @@
+{"level":"DEBUG","time":"2025-07-27T00:16:39.310+0800","caller":"bluebell/main.go:32","msg":"logger init success..."}
+{"level":"INFO","time":"2025-07-27T00:19:56.679+0800","caller":"bluebell/main.go:67","msg":"Shutdown Server ..."}
+{"level":"INFO","time":"2025-07-27T00:19:56.679+0800","caller":"bluebell/main.go:73","msg":"Server exited gracefully"}
+{"level":"DEBUG","time":"2025-07-27T14:59:01.590+0800","caller":"bluebell/main.go:32","msg":"logger init success..."}
+{"level":"ERROR","time":"2025-07-27T14:59:01.608+0800","caller":"mysql/mysql.go:18","msg":"connect DB failed, err:#{err}"}
+{"level":"DEBUG","time":"2025-07-27T14:59:39.922+0800","caller":"bluebell/main.go:32","msg":"logger init success..."}
+{"level":"DEBUG","time":"2025-07-27T15:00:11.044+0800","caller":"bluebell/main.go:32","msg":"logger init success..."}
+{"level":"DEBUG","time":"2025-07-27T15:02:02.948+0800","caller":"bluebell/main.go:32","msg":"logger init success..."}
+{"level":"DEBUG","time":"2025-07-27T15:02:54.049+0800","caller":"bluebell/main.go:32","msg":"logger init success..."}
+{"level":"DEBUG","time":"2025-07-27T15:04:22.774+0800","caller":"bluebell/main.go:32","msg":"logger init success..."}
+{"level":"DEBUG","time":"2025-07-27T15:05:22.932+0800","caller":"bluebell/main.go:32","msg":"logger init success..."}
