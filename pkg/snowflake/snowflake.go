@@ -1,6 +1,7 @@
 package snowflake
 
 import (
+	"fmt"
 	sf "github.com/bwmarrin/snowflake"
 	"time"
 )
@@ -20,5 +21,18 @@ func Init(startTime string, machineID int64) (err error) {
 }
 
 func GenID() int64 {
+	if node == nil {
+		fmt.Println("snowflake Node is not initialized, please call Init() first")
+		return 0
+	}
 	return node.Generate().Int64()
+}
+
+func main() {
+	if err := Init("2020-07-01", 1); err != nil {
+		fmt.Println("Init snowflake failed:", err)
+		return
+	}
+	id := GenID()
+	fmt.Println("Generated ID:", id)
 }
