@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func Setup() *gin.Engine {
+func SetupRouter() *gin.Engine {
 	r := gin.New()
 	r.Use(logger.GinLogger(zap.L()), logger.GinRecovery(true))
 

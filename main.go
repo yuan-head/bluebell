@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bluebell/controller"
 	"bluebell/dao/mysql"
 	"bluebell/dao/redis"
 	"bluebell/logger"
+	"bluebell/pkg/snowflake"
 	"bluebell/routes"
 	"bluebell/settings"
 	"context"
@@ -42,14 +44,26 @@ func main() {
 		return
 	}
 	defer redis.Close() // 确保在程序退出时关闭Redis连接
+	// 初始化翻译器
+
+	err := controller.InitTrans("zh")
+	if err != nil {
+		fmt.Println("init trans failed, err:#{err}")
+		return
+	} // 初始化翻译器，设置语言为中文
+	// 初始化雪花算法
+	if err := snowflake.Init(settings.Conf.StartTime, settings.Conf.MachineID); err != nil { // 初始化雪花算法
+		fmt.Printf("init snowflake failed, err: %v\n", err)
+		return
+	}
 	// 5. 注册路由
-	r := routes.Setup()
+	r := routes.SetupRouter()
 	// 6. 启动服务
 	srv := &http.Server{
-		Addr:    fmt.Sprintf(":%d", viper.GetInt("app.port")), // 从配置文件中读取端口号
+		Addr:    fmt.Sprintf(":%d", viper.GetInt("port")), // 从配置文件中读取端口号
 		Handler: r,
 	}
-
+	fmt.Println("🚀 Listening on port:", viper.GetInt("port"))
 	go func() {
 		// 开启一个goroutine启动服务
 		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {

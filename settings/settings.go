@@ -10,13 +10,15 @@ import (
 var Conf = new(AppConfig)
 
 type AppConfig struct {
-	Name         string `mapstructure:"name"`    // 应用名称
-	Mode         string `mapstructure:"mode"`    // 应用运行模式
-	Version      string `mapstructure:"version"` // 应用版本
-	Port         int    `mapstructure:"port"`    // 应用端口
-	*LogConfig   `mapstructure:"log"`            // 日志配置
-	*MySQLConfig `mapstructure:"mysql"`          // MySQL配置
-	*RedisConfig `mapstructure:"redis"`          // Redis配置
+	Name         string                 `mapstructure:"name"`       // 应用名称
+	Mode         string                 `mapstructure:"mode"`       // 应用运行模式
+	Version      string                 `mapstructure:"version"`    // 应用版本
+	Port         int                    `mapstructure:"port"`       // 应用端口
+	MachineID    int64                  `mapstructure:"machine_id"` // 雪花算法机器ID
+	StartTime    string                 `mapstructure:"start_time"` // 雪花算法起始时间
+	*LogConfig   `mapstructure:"log"`   // 日志配置
+	*MySQLConfig `mapstructure:"mysql"` // MySQL配置
+	*RedisConfig `mapstructure:"redis"` // Redis配置
 }
 
 type LogConfig struct {
@@ -32,9 +34,9 @@ type MySQLConfig struct {
 	Port         int    `mapstructure:"port"`
 	User         string `mapstructure:"user"`
 	Password     string `mapstructure:"password"`
-	DbName       string `mapstructure:"db_name"`
-	MaxOpenConns int    `mapstructure:"max_connections"`
-	MaxIdleConns int    `mapstructure:"max_idle_connections"`
+	DbName       string `mapstructure:"dbname"`
+	MaxOpenConns int    `mapstructure:"max_open_conns"` // MySQL最大连接数
+	MaxIdleConns int    `mapstructure:"max_idle_conns"` // MySQL最大空闲连接数
 }
 
 type RedisConfig struct {
