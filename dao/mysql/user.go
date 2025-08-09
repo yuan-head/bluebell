@@ -10,6 +10,12 @@ import (
 
 const secret = "wainlin_study"
 
+var (
+	ErrorUserExist       = errors.New("用户已存在")
+	ErrorUserNotExist    = errors.New("用户不存在")
+	ErrorInvalidPassword = errors.New("用户名或密码错误")
+)
+
 // 把每一步数据库操作都封装成一个函数
 // 待logic层根据业务需求调用
 func CheckUserExist(username string) (err error) {
@@ -19,7 +25,7 @@ func CheckUserExist(username string) (err error) {
 		return err
 	}
 	if count > 0 {
-		return errors.New("用户已存在")
+		return ErrorUserExist
 	}
 	return
 }
@@ -51,7 +57,7 @@ func Login(user *models.User) (err error) {
 	sqlStr := `SELECT user_id, username, password FROM user WHERE username = ?`
 	err = db.Get(user, sqlStr, user.Username)
 	if err == sql.ErrNoRows {
-		return errors.New("用户不存在")
+		return ErrorUserNotExist
 	}
 	if err != nil {
 		return err
@@ -62,7 +68,7 @@ func Login(user *models.User) (err error) {
 	// 因此需要对输入的密码进行加密后再进行比较
 	password := encryptPassword(oPassword)
 	if user.Password != password {
-		return errors.New("密码错误")
+		return ErrorInvalidPassword
 	}
 	// 3. 登录成功，返回nil
 	return
